@@ -1,0 +1,7 @@
+{
+  "globalDependencies": {
+    "cookies": "registry:dt/cookies#0.5.1+20160316171810",
+    "koa": "registry:dt/koa#2.0.0+20160724024233",
+    "node": "registry:dt/node#6.0.0+20160817204926"
+  }
+}
