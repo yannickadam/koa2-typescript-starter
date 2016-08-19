@@ -1,5 +1,22 @@
+/**
+ * 
+ */
 import * as Koa from 'koa';
-//var Koa = require("koa");
+import * as mongoose from 'mongoose';
 
 const app = new Koa();
-console.log("server");
+
+(async ()=> {
+
+    // Connect to Database
+    mongoose.Promise = global.Promise;  // Ensure Mongoose uses native promises
+    await mongoose.connect("mongodb://localhost/project");
+
+    // !!! For demonstration purposes only !!!
+    app.use( (ctx:Koa.Context, next:any) => {
+        ctx.body = "Welcome to Koa!";
+    });
+
+    await app.listen(3125);
+    console.log("Server started on port 3125.");
+})();

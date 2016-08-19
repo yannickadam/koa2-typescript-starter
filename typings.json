@@ -2,6 +2,9 @@
   "globalDependencies": {
     "cookies": "registry:dt/cookies#0.5.1+20160316171810",
     "koa": "registry:dt/koa#2.0.0+20160724024233",
+    "mongodb": "registry:dt/mongodb#2.1.0+20160602142941",
+    "mongoose": "registry:dt/mongoose#4.5.4+20160807120805",
+    "mongoose-promise": "registry:dt/mongoose-promise#4.5.4+20160720003345",
     "node": "registry:dt/node#6.0.0+20160817204926"
   }
 }
