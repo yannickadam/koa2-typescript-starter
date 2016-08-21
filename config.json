@@ -1,0 +1,5 @@
+{
+    "name": "project",
+    "port" : "3125",
+    "database" : "mongodb://localhost/project"    
+}
