@@ -14,22 +14,29 @@ if( !obj.log ) {
     obj.log = bunyan.createLogger({name: config.get("name")});
 }
 
+/**
+ * 
+ */
+var requestID = 0;
+
 async function Logger(ctx:Koa.Context, next:any) {
+
+    let currentRequestID = requestID++;
 
     // Log initial request
     const startTime = process.hrtime()
-    logger.info(`→ ${ctx.request.method} ${ctx.request.url}`);
+    logger.info(`→ (ID:${currentRequestID}) ${ctx.request.method} ${ctx.request.url}`);
     
     await next();
 
     // Log response status and time
     const endTime = process.hrtime();
     const elapsed = (endTime[0]-startTime[0]) * 1000 + (endTime[1]-startTime[1]) / 1000000;
-    logger.info(`← ${ctx.request.method} ${ctx.request.url} : Status(${ctx.response.status}) Time(${elapsed.toFixed(0)}ms)`);
+    logger.info(`← (ID:${currentRequestID}) ${ctx.request.method} ${ctx.request.url} : Status(${ctx.response.status}) Time(${elapsed.toFixed(0)}ms)`);
 
 }
 
 
-// expose Logger
+// expose Loggers
 export var logger = obj.log;
 export var koaLogger = Logger;

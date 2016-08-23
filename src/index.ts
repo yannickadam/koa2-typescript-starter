@@ -19,10 +19,11 @@ import {logger, koaLogger} from './utilities/logger';
         // Initialize Koa
         const app = new Koa();
 
+        // First middleware to inject should be the logger
         app.use( koaLogger );
 
         // !!! For demonstration purposes only !!!
-        app.use( (ctx:Koa.Context, next:any) => {
+        app.use( async (ctx:Koa.Context, next:any) => {
             ctx.body = "<html><body><h1>Koa2 TypeScript starter pack</h1></body></html>";
         });        
 
