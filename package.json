@@ -4,8 +4,10 @@
   "description": "Koa2 starter using TypeScript",
   "main": "index.js",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
     "bunyan": "^1.8.1",
     "koa": "2.0.0-alpha.5",
+    "koa-bodyparser": "^3.2.0",
     "koa-router": "^7.0.1",
     "mongoose": "4.5.9",
     "nconf": "^0.8.4",

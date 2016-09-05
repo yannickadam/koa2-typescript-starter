@@ -3,17 +3,20 @@
  *
  */
 import * as Koa from 'koa';                 // Koa Framework
+import * as Parser from 'koa-bodyparser';   
 import * as mongoose from 'mongoose';       // Object Modeling for MongoDB 
 import {config} from './utilities/configuration';
 import {logger, koaLogger} from './utilities/logger';
+import {koaRoutes} from './routes';
 
 (async ()=> {
 
     try {
         // Connect to Database
         mongoose.PromiseProvider.set(global.Promise);  // Ensure Mongoose uses native promises - mongoose.Promise = global.Promise generates a TS error (ES6 module imports are constants)
-        logger.info(`Connecting to Database ${config.get("database")}` );
-        await mongoose.connect( config.get("database") );
+        let dbUrl = config.get("database"); 
+        logger.info(`Connecting to Database ${dbUrl}` );
+        await mongoose.connect( dbUrl );
         logger.info(`Database connected.`);
 
         // Initialize Koa
@@ -22,10 +25,15 @@ import {logger, koaLogger} from './utilities/logger';
         // First middleware to inject should be the logger
         app.use( koaLogger );
 
-        // !!! For demonstration purposes only !!!
-        app.use( async (ctx:Koa.Context, next:any) => {
-            ctx.body = "<html><body><h1>Koa2 TypeScript starter pack</h1></body></html>";
-        });        
+        // 
+        app.use( Parser() );
+
+        // Apply Routes
+        app.use( koaRoutes );
+
+        app.use( (ctx:Koa.Context)=>{
+            ctx.body="Hello";
+        })
 
         // Start listening
         logger.info(`Starting server on port ${config.get("port")}.`);

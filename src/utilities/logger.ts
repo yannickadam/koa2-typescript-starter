@@ -14,11 +14,12 @@ if( !obj.log ) {
     obj.log = bunyan.createLogger({name: config.get("name")});
 }
 
+// Used to identify requests uniquely
+var requestID = 0;
+
 /**
  * 
  */
-var requestID = 0;
-
 async function Logger(ctx:Koa.Context, next:any) {
 
     let currentRequestID = requestID++;
