@@ -1,6 +1,6 @@
 {
     "name": "project",
     "port" : "3125",
-    "database" : "mongodb://localhost/project",
+    "database" : "mongodb://mongo/project",
     "secret" : "secret_key"    
 }

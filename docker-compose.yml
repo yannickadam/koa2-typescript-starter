@@ -1,0 +1,26 @@
+version: '2'
+
+services: 
+        
+  backend:
+    image: node:7
+    volumes:
+      - ./:/usr/src/app
+      - node_modules:/usr/src/app/node_modules
+      - build:/usr/src/app/build
+    working_dir: /usr/src/app
+    command: sh -c 'npm install; npm start'
+    ports:
+      - "3000:3000"
+
+  mongo: 
+    image: mongo:3.4
+    volumes:
+      - mongo_data:/data/db
+    ports:
+      - "27017:27017"
+
+volumes:
+  mongo_data:
+  node_modules:
+  build:

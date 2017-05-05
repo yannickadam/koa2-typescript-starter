@@ -8,6 +8,7 @@ import * as mongoose from 'mongoose';       // Object Modeling for MongoDB
 import {config} from './utilities/configuration';
 import {logger, koaLogger} from './utilities/logger';
 import {koaRoutes} from './routes';
+import {corsHandler} from './utilities/corshandler';
 
 (async ()=> {
 
@@ -22,16 +23,21 @@ import {koaRoutes} from './routes';
         // Initialize Koa
         const app = new Koa();
 
-        // First middleware to inject should be the logger
+        // Logger needs to be injected first
         app.use( koaLogger );
 
-        // 
+        // Handle CORS requests
+        app.use( corsHandler );
+
+        // Parses body params
         app.use( Parser() );
 
         // Apply Routes
         app.use( koaRoutes );
 
+        // Generic reply - Needs to return 404
         app.use( (ctx:Koa.Context)=>{
+            // TODO: 404
             ctx.body="Hello";
         })
 
